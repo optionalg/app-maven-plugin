@@ -21,9 +21,17 @@ import org.apache.maven.it.util.ResourceExtractor;
 
 import java.io.IOException;
 
+/**
+ * Verifier that uses a test App Engine Standard project.
+ */
 public class StandardVerifier extends TailingVerifier {
 
-  public StandardVerifier(String testName, Class<?> clazz) throws IOException, VerificationException {
+  /**
+   * Creates the verifier with the given name and loads the project
+   * {@code /projects/standard-project} as a resource using the provided {@link Class}.
+   */
+  public StandardVerifier(String testName, Class<?> clazz) throws IOException,
+      VerificationException {
     super(testName,
         ResourceExtractor
             .simpleExtractResources(clazz, "/projects/standard-project")

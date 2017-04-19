@@ -16,7 +16,7 @@
 
 package com.google.cloud.tools.maven;
 
-
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +45,9 @@ public abstract class AbstractDevServerTest {
     TemporaryFolder tempFolder = new TemporaryFolder();
     tempFolder.create();
     File webInf = tempFolder.newFolder("build", "artifact", "WEB-INF");
-    new File(webInf, "appengine-web.xml").createNewFile();
+    if (!new File(webInf, "appengine-web.xml").createNewFile()) {
+      fail("Could not create appengine-web.xml");
+    }
     when(mavenProjectMock.getBuild()).thenReturn(mock(Build.class));
     when(mavenProjectMock.getBuild().getDirectory())
         .thenReturn(webInf.getParentFile().getParentFile().getAbsolutePath());

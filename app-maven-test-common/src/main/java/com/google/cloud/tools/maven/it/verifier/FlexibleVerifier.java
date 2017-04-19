@@ -21,8 +21,15 @@ import org.apache.maven.it.util.ResourceExtractor;
 
 import java.io.IOException;
 
+/**
+ * Verifier that uses a test App Engine Standard project.
+ */
 public class FlexibleVerifier extends TailingVerifier {
 
+  /**
+   * Creates the verifier with the given name and loads the project
+   * {@code /projects/flexible-project} as a resource using the provided {@link Class}.
+   */
   public FlexibleVerifier(String testName) throws IOException, VerificationException {
     super(testName,
         ResourceExtractor

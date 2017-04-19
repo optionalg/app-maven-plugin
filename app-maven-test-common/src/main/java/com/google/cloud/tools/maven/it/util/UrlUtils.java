@@ -16,13 +16,13 @@
 
 package com.google.cloud.tools.maven.it.util;
 
-
 import com.google.common.io.CharStreams;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class UrlUtils {
 
@@ -35,9 +35,11 @@ public class UrlUtils {
       int responseCode = urlConnection.getResponseCode();
       if (responseCode == 200) {
         return CharStreams
-            .toString(new InputStreamReader(urlConnection.getInputStream()));
+            .toString(new InputStreamReader(urlConnection.getInputStream(),
+                StandardCharsets.UTF_8));
       }
     } catch (IOException e) {
+      e.printStackTrace();
     }
     return null;
   }
@@ -56,6 +58,23 @@ public class UrlUtils {
     return getUrlContentWithRetries(url, timeoutMs, retryDelayMs, false);
   }
 
+  private static String getUrlContentWithRetries(String url, long timeoutMs, long retryDelayMs,
+      boolean waitForFailure)
+          throws InterruptedException {
+    long totalWaitedMs = 0;
+    String content = getUrlContent(url);
+    
+    while ((waitForFailure && content != null || !waitForFailure && content == null)
+        && totalWaitedMs < timeoutMs) {
+      long delay = Math.min(retryDelayMs, timeoutMs - totalWaitedMs);
+      Thread.sleep(delay);
+      totalWaitedMs += delay;
+      content = getUrlContent(url);
+    }
+    
+    return content;
+  }
+
   /**
    * Returns true if the URL status code is not 200. Retries multiple times to see if the server
    * eventually goes down
@@ -68,22 +87,5 @@ public class UrlUtils {
   public static boolean isUrlDownWithRetries(String url, long timeoutMs, long retryDelayMs)
       throws InterruptedException {
     return getUrlContentWithRetries(url, timeoutMs, retryDelayMs, true) == null;
-  }
-
-  private static String getUrlContentWithRetries(String url, long timeoutMs, long retryDelayMs,
-      boolean waitForFailure)
-      throws InterruptedException {
-    long totalWaitedMs = 0;
-    String content = getUrlContent(url);
-
-    while ((waitForFailure && content != null || !waitForFailure && content == null)
-        && totalWaitedMs < timeoutMs) {
-      long delay = Math.min(retryDelayMs, timeoutMs - totalWaitedMs);
-      Thread.sleep(delay);
-      totalWaitedMs += delay;
-      content = getUrlContent(url);
-    }
-
-    return content;
   }
 }

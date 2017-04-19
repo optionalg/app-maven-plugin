@@ -16,7 +16,6 @@
 
 package com.google.cloud.tools.maven.it.verifier;
 
-
 import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListener;
 import org.apache.commons.io.input.TailerListenerAdapter;
@@ -26,12 +25,18 @@ import org.apache.maven.it.Verifier;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Verifier that prepends the log messages with the test's name.
+ */
 public class TailingVerifier extends Verifier {
 
   public static final int TAIL_DELAY_MILLIS = 1000;
 
   private String testName;
 
+  /**
+   * Creates a verifier that tails the log and prepends each line with the test's name.
+   */
   public TailingVerifier(String testName, String basedir) throws VerificationException {
     super(basedir, true);
     this.testName = testName;
@@ -52,10 +57,12 @@ public class TailingVerifier extends Verifier {
     // Tail the log
     File file = new File(getBasedir() + File.separator + getLogFileName());
     try {
-      if (file.exists()) {
-        file.delete();
+      if (file.exists() && !file.delete()) {
+        System.err.println("Could not delete log file: " + file.getAbsolutePath());
       }
-      file.createNewFile();
+      if (!file.createNewFile()) {
+        System.err.println("Could not create log file: " + file.getAbsolutePath());
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
