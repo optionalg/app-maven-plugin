@@ -39,6 +39,13 @@
       <organization>Google</organization>
       <organizationUrl>http://www.google.com</organizationUrl>
     </developer>
+    <developer>
+      <id>akerekes</id>
+      <name>Andras Kerekes</name>
+      <email>akerekes@google.com</email>
+      <organization>Google</organization>
+      <organizationUrl>http://www.google.com</organizationUrl>
+    </developer>
   </developers>
 
   <scm>
@@ -84,9 +91,9 @@
   </repositories>
 
   <modules>
-    <module>app-maven-common</module>
-    <module>std-run-plugin</module>
-    <module>app-maven-test-common</module>
+    <module>common</module>
+    <module>test-common</module>
+    <module>run-plugin</module>
     <module>deploy-plugin</module>
   </modules>
 
