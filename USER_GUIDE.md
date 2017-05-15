@@ -177,7 +177,7 @@ You can debug the Dev App Server v1 using the jvmFlags:
 <configuration>
 ```
 
-### How do I enable hot reload of classes?
+### How do I enable hot reload of my application?
 
 To enable hot reload of classes, you must tell the Dev App Server v1 to scan for changes :
 ```XML
