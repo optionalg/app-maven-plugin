@@ -10,16 +10,22 @@ set -x
 echo "Publishing test!"
 # TODO: Implement publishing to Sonatype.
 
-pwd
-cd github/app-maven-plugin
+# pwd
+# cd github/app-maven-plugin
 
-ARTIFACT_ID=$(mvn -B help:evaluate -Dexpression=project.artifactId 2>/dev/null | grep -v "^\[")
-PROJECT_VERSION=$(mvn -B help:evaluate -Dexpression=project.version 2>/dev/null| grep -v "^\[")
+# ARTIFACT_ID=$(mvn -B help:evaluate -Dexpression=project.artifactId 2>/dev/null | grep -v "^\[")
+# PROJECT_VERSION=$(mvn -B help:evaluate -Dexpression=project.version 2>/dev/null| grep -v "^\[")
 
 
-echo "ARTIFACT_ID=$ARTIFACT_ID"
-echo "PROJECT_VERSION=$PROJECT_VERSION"
+# echo "ARTIFACT_ID=$ARTIFACT_ID"
+# echo "PROJECT_VERSION=$PROJECT_VERSION"
 echo "$KOKORO_GFILE_DIR"
+
+ls $KOKORO_ARTIFACTS_DIR
+ls $KOKORO_GFILE_DIR
+
+tree $KOKORO_ARTIFACTS_DIR
+tree $KOKORO_GFILE_DIR
 
 pwd
 cd $KOKORO_GFILE_DIR
