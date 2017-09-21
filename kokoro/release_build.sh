@@ -5,15 +5,6 @@ set -e
 # Display commands to stderr.
 set -x
 
-# If UPLOAD_TO_SONATYPE is set to "true", upload the signed artifacts to Sonatype Nexus repository
-# instead.
-echo "UPLOAD_TO_SONATYPE is $UPLOAD_TO_SONATYPE"
-if [ $UPLOAD_TO_SONATYPE == "true" ]; then
-	echo "UPLOAD_TO_SONATYPE is set to true!"
-	exit 0
-fi
-exit 0
-
 sudo /opt/google-cloud-sdk/bin/gcloud components update
 sudo /opt/google-cloud-sdk/bin/gcloud components install app-engine-java
 
