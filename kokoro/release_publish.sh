@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fail on any error.
-set -e
+# set -e
 # Display commands to stderr.
 set -x
 
