@@ -21,7 +21,8 @@ echo "ARTIFACT_ID=$ARTIFACT_ID"
 echo "PROJECT_VERSION=$PROJECT_VERSION"
 echo "$KOKORO_GFILE_DIR"
 
-cd ../../$KOKORO_GFILE_DIR
+pwd
+cd $KOKORO_GFILE_DIR
 
 # Finds the latest directory under prod/app-maven-plugin/ubuntu/release/.
 LAST_BUILD=$(ls prod/app-maven-plugin/ubuntu/release/ | sort -rV | head -1)
