@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fail on any error.
-set -e
+# set -e
 # Display commands to stderr.
 set -x
 
@@ -10,6 +10,7 @@ set -x
 echo "Publishing test!"
 # TODO: Implement publishing to Sonatype.
 
+pwd
 cd github/app-maven-plugin
 
 ARTIFACT_ID=$(mvn -B help:evaluate -Dexpression=project.artifactId 2>/dev/null | grep -v "^\[")
