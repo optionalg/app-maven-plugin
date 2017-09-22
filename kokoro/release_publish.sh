@@ -21,7 +21,7 @@ BUNDLED_JAR_FILE=$(find `pwd`/prod/app-maven-plugin/ubuntu/release-sign/${LAST_B
 # Uses the environment variable CREDENTIALS.
 # Stores the Nexus session ID in the given variable.
 GetSessionID() {
-	local __resultvar=$3
+	local __resultvar=$1
 
 	# Makes a temporary file to store the login cookies.
 	local cookies_temp=$(mktemp /tmp/sonatype_cookies.XXXXXXX)
