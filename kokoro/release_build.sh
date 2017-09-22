@@ -32,7 +32,7 @@ ls prod/app-maven-plugin
 ls prod/app-maven-plugin/ubuntu
 ls prod/app-maven-plugin/ubuntu/release-sign
 
-# Finds the latest directory under prod/app-maven-plugin/ubuntu/release/.
+# Finds the latest ubuntu/release-sign build directory.
 LAST_BUILD=$(ls prod/app-maven-plugin/ubuntu/release-sign/ | sort -rV | head -1)
 
 echo "LAST_BUILD=$LAST_BUILD"
