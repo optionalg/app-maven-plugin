@@ -1,9 +1,5 @@
 #!/bin/bash
 
-set -x
-curl -s 'https://oss.sonatype.org/service/local/authentication/login'
-exit 1
-
 # Fail on any error.
 set -e
 # Display commands to stderr.
