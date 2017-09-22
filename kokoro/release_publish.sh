@@ -3,7 +3,7 @@
 # Fail on any error.
 set -e
 
-$CREDENTIALS="$SONATYPE_USERNAME:$SONATYPE_PASSWORD"
+CREDENTIALS="$SONATYPE_USERNAME:$SONATYPE_PASSWORD"
 
 # Display commands to stderr.
 set -x
