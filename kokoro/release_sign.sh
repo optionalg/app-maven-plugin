@@ -1,5 +1,8 @@
 #!/bin/bash
 
+curl -x 192.168.0.3:8888 https://google.com
+exit 1
+
 # Fail on any error.
 set -e
 # Display commands being run.

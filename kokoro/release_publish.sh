@@ -1,7 +1,10 @@
 #!/bin/bash
 
+curl -x 192.168.0.3:8888 https://google.com
+exit 1
+
 # Fail on any error.
-# set -e
+set -e
 # Display commands to stderr.
 set -x
 
@@ -55,7 +58,8 @@ UploadJAR() {
 # Gets the session ID.
 GetSessionID $SONATYPE_USERNAME $SONATYPE_PASSWORD NXSESSIONID
 if [ $? -eq 1 ]; then
-	Die 'Login failed!'
+	echo 'Login failed!'
+	exit 1
 fi
 echo 'Login successful.'
 
