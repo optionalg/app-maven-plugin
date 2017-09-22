@@ -27,7 +27,7 @@ GetSessionID() {
 	local cookies_temp=$(mktemp /tmp/sonatype_cookies.XXXXXXX)
 
 	# Sends a login request.
-	{ local login_response=$(curl 'https://oss.sonatype.org/service/local/authentication/login' -X 'GET' -u "$CREDENTIALS" -c $cookies_temp 2> /dev/null) } 2> /dev/null
+	{ local login_response=$(curl 'https://oss.sonatype.org/service/local/authentication/login' -X 'GET' -u "$CREDENTIALS" -c $cookies_temp 2> /dev/null); } 2> /dev/null
 
 	# Checks if login was successful.
 	echo $login_response | grep -q '<loggedIn>true</loggedIn>'
