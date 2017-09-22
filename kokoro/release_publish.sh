@@ -2,6 +2,9 @@
 
 # Fail on any error.
 set -e
+
+$CREDENTIALS="$SONATYPE_USERNAME:$SONATYPE_PASSWORD"
+
 # Display commands to stderr.
 set -x
 
@@ -14,20 +17,17 @@ LAST_BUILD=$(ls prod/app-maven-plugin/ubuntu/release-sign/ | sort -rV | head -1)
 # Finds the bundled jar file in the latest signed artifact directory.
 BUNDLED_JAR_FILE=$(find `pwd`/prod/app-maven-plugin/ubuntu/release-sign/${LAST_BUILD}/* -type f \( -iname \*-bundle.jar \))
 
-# Usage: GetSessionID <username> <password> <variable name>
+# Usage: GetSessionID <variable name>
+# Uses the environment variable CREDENTIALS.
 # Stores the Nexus session ID in the given variable.
 GetSessionID() {
-	local username=$1
-	local password=$2
 	local __resultvar=$3
-
-	local credentials="$username:$password"
 
 	# Makes a temporary file to store the login cookies.
 	local cookies_temp=$(mktemp /tmp/sonatype_cookies.XXXXXXX)
 
 	# Sends a login request.
-	local login_response=$(curl 'https://oss.sonatype.org/service/local/authentication/login' -X 'GET' -u "$credentials" -c $cookies_temp 2> /dev/null)
+	{ local login_response=$(curl 'https://oss.sonatype.org/service/local/authentication/login' -X 'GET' -u "$CREDENTIALS" -c $cookies_temp 2> /dev/null) } 2> /dev/null
 
 	# Checks if login was successful.
 	echo $login_response | grep -q '<loggedIn>true</loggedIn>'
@@ -53,7 +53,7 @@ UploadJAR() {
 }
 
 # Gets the session ID.
-GetSessionID $SONATYPE_USERNAME $SONATYPE_PASSWORD NXSESSIONID
+GetSessionID NXSESSIONID
 if [ $? -eq 1 ]; then
 	echo 'Login failed!'
 	exit 1
