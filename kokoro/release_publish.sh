@@ -62,6 +62,6 @@ echo 'Login successful.'
 
 # Uploads the bundled JAR file.
 echo 'Uploading artifact...'
-# UploadJAR $NXSESSIONID $BUNDLED_JAR_FILE
+UploadJAR $NXSESSIONID $BUNDLED_JAR_FILE
 
 # TODO: Release on Sonatype.
