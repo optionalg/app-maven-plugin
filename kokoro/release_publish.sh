@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x
-curl https://www.google.com
+curl -s 'https://oss.sonatype.org/service/local/authentication/login'
 exit 1
 
 # Fail on any error.
